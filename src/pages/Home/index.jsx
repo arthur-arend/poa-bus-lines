@@ -9,7 +9,7 @@ import "./styles.scss";
 
 function Home() {
   const [searchField, setSearchField] = useState("");
-  const [lines, setLines] = useState();
+  const [lines, setLines] = useState([]);
   const [switchState, setSwitchState] = useState("o");
 
   const handleSearch = () => {
@@ -19,13 +19,15 @@ function Home() {
           `http://www.poatransporte.com.br/php/facades/process.php?a=nc&p=%&t=${switchState}&p=${searchField}`
         )
         .then((res) => {
-          if (res.data) {
+          debugger;
+          if (res.data !== '{"Linhas n�o encontradas"}') {
             setLines(res.data);
           } else {
             alert("Não encontramos linhas");
           }
         })
         .catch((error) => {
+          debugger;
           alert("Ocorreu um erro ao buscar a linha");
         });
     }
@@ -74,11 +76,13 @@ function Home() {
         </div>
       </div>
       <div className="result__container">
-        {lines
-          ? lines.map((line) => {
-              return <Card key={line.id} line={line} />;
-            })
-          : null}
+        {lines.length > 0 ? (
+          lines.map((line) => {
+            return <Card key={line.id} line={line} />;
+          })
+        ) : (
+          <div />
+        )}
       </div>
     </div>
   );
