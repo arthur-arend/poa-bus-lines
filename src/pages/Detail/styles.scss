@@ -1,4 +1,12 @@
 .detail__container {
   width: 100vw;
   height: 100vh;
+
+  position: relative;
+
+  .info__container {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
 }

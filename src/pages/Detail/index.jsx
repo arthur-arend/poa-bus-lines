@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import Button from "@material-ui/core/Button";
 import axios from "axios";
 
 import Map from "../../components/Map";
@@ -17,9 +18,8 @@ function Detail() {
       )
       .then((res) => {
         if (res.data) {
-          let routesArray = [];
-          routesArray.push(res.data);
-          setRoute(routesArray);
+          const final = Object.entries(res.data);
+          setRoute(final);
         } else {
           alert("Não encontramos linhas");
         }
@@ -29,10 +29,23 @@ function Detail() {
       });
   }, []);
 
+  function handleBack() {
+    history.goBack();
+  }
+
   return (
     <div className="detail__container">
       {route ? <Map route={route} /> : null}
-      <Map />
+      <div className="info__container">
+        <Button
+          className="search-input__button"
+          variant="contained"
+          color="primary"
+          onClick={() => handleBack()}
+        >
+          Voltar
+        </Button>
+      </div>
     </div>
   );
 }

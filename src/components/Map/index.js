@@ -4,16 +4,9 @@ import LocationMarker from "../LocationMarker";
 import "./styles.scss";
 
 function Maps({ route, center, zoom }) {
-  console.log("Rota no mapa", route);
-
-  // const markers = route[0].map((rt) => {
-  //   if (rt) {
-  //     return console.log(rt);
-  //   } else {
-  //     return null;
-  //   }
-  //   //   return <LocationMarker lat={rt[0]} lng={rt[1]} />;
-  // });
+  const markers = route.map((rt) => {
+    return <LocationMarker lat={rt[1].lat} lng={rt[1].lng} />;
+  });
 
   return (
     <div className="map__container">
@@ -22,7 +15,7 @@ function Maps({ route, center, zoom }) {
         defaultCenter={center}
         defaultZoom={zoom}
       >
-        {/* {markers} */}
+        {markers}
       </GoogleMapReact>
     </div>
   );

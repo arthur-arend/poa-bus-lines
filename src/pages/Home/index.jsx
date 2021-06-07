@@ -3,18 +3,20 @@ import axios from "axios";
 
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import Switch from "@material-ui/core/Switch";
 import Card from "../../components/Card";
 import "./styles.scss";
 
 function Home() {
   const [searchField, setSearchField] = useState("");
   const [lines, setLines] = useState();
+  const [switchState, setSwitchState] = useState("o");
 
   const handleSearch = () => {
     if (searchField) {
       axios
         .get(
-          `http://www.poatransporte.com.br/php/facades/process.php?a=nc&p=%&t=o&p=${searchField}`
+          `http://www.poatransporte.com.br/php/facades/process.php?a=nc&p=%&t=${switchState}&p=${searchField}`
         )
         .then((res) => {
           if (res.data) {
@@ -27,6 +29,15 @@ function Home() {
           alert("Ocorreu um erro ao buscar a linha");
         });
     }
+  };
+
+  const switchHandle = () => {
+    if (switchState === "o") {
+      setSwitchState("l");
+    } else {
+      setSwitchState("o");
+    }
+    console.log(switchState);
   };
 
   return (
@@ -51,6 +62,15 @@ function Home() {
           >
             Buscar
           </Button>
+        </div>
+        <div className="switch__container">
+          Ônibus
+          <Switch
+            color="default"
+            inputProps={{ "aria-label": "checkbox with default color" }}
+            onChange={() => switchHandle()}
+          />
+          Lotação
         </div>
       </div>
       <div className="result__container">
