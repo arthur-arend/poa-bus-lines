@@ -13,8 +13,6 @@ function Card(line) {
       history.push(`/detail/${e}`);
     }
   };
-
-  console.log(line);
   return (
     <div className="card__container">
       <h1>Nome: {nome}</h1>
